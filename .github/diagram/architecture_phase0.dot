@@ -1,0 +1,53 @@
+digraph Phase0Architecture {
+  rankdir=LR;
+  splines=ortho;
+  nodesep=0.8;
+  ranksep=1.0;
+
+  node [shape=box, style="rounded,filled", fillcolor="#EFEFEF", fontname="Helvetica"];
+  edge [fontname="Helvetica"];
+
+  InputFile [label="Input Transaction File\n(Fixed-format / batch input)"];
+  CobolBatch [label="COBOL Batch\nLegacy parsing + batch transformation"];
+  KafkaRaw [label="Kafka Topic\ntransactions.raw"];
+  ScalaValidator [label="Scala Validation Service\nValidation + enrichment"];
+  KafkaValidated [label="Kafka Topic\ntransactions.validated"];
+  JavaService [label="Java Persistence/API Service\nConsumer + REST API"];
+  Postgres [label="PostgreSQL\nDurable transaction storage"];
+  Client [label="Client / Developer\nReads transaction data via API"];
+
+  InputFile -> CobolBatch [label="reads"];
+  CobolBatch -> KafkaRaw [label="publishes raw events"];
+  KafkaRaw -> ScalaValidator [label="consumes"];
+  ScalaValidator -> KafkaValidated [label="publishes validated events"];
+  KafkaValidated -> JavaService [label="consumes"];
+  JavaService -> Postgres [label="writes transactions"];
+  Client -> JavaService [label="HTTP REST requests"];
+  JavaService -> Client [label="JSON responses"];
+
+  subgraph cluster_legacy {
+    label="Legacy Boundary";
+    style="dashed";
+    color="#999999";
+    InputFile;
+    CobolBatch;
+  }
+
+  subgraph cluster_event {
+    label="Event-Driven Core";
+    style="dashed";
+    color="#999999";
+    KafkaRaw;
+    ScalaValidator;
+    KafkaValidated;
+  }
+
+  subgraph cluster_modern {
+    label="Modern Service Layer";
+    style="dashed";
+    color="#999999";
+    JavaService;
+    Postgres;
+    Client;
+  }
+}

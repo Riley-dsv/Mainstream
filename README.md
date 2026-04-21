@@ -22,6 +22,6 @@ A small distributed platform simulating financial transaction processing across 
 ## Current Phase : 0 Scoping
 
 - [ ] Choose the transaction format
-- [ ] Define the Kafka topics
+- [x] Define the Kafka topics
 - [x] Freeze the statuses
-- [ ] Write the JSON schemas
+- [x] Write the JSON schemas

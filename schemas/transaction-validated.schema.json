@@ -1,0 +1,31 @@
+{
+  "transactionId": "TXN-20260421151600-255-000000123",
+  "validation": {
+    "status": "VALIDATED",
+    "timestamp": "2026-04-21T15:37:00Z"
+  },
+  "transaction": {
+    "transactionTimestamp": "2026-04-21T15:16:00Z",
+    "sourceAccount": {
+      "iban": "FR7630001007941234567890185"
+    },
+    "destinationAccount": {
+      "iban": "FR7630056009271234567890182"
+    },
+    "transfer": {
+      "amount": 120050,
+      "currency": "EUR"
+    },
+    "sourceMetadata": {
+      "origin": "COBOL",
+      "workerId": 255,
+      "producer": "validation"
+    }
+  },
+  "metadata": {
+    "origin": "SCALA_SERVICE",
+    "workerId": 199,
+    "producer": "validation-service"
+  }
+}
+

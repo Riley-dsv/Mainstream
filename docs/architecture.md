@@ -48,6 +48,26 @@ Responsible for building realtime user and intragration live data consumption.
 - **PostgreSQL**: Simple, reliable relational storage.
 - **Elixir / Phoenix**: Suitable for realtime data consuming and display.
 
+## Kafka Topics
+
+### `transactions.raw`
+- Produced by: COBOL batch producer
+- Consumed by: Scala validation service
+- Purpose: carries raw transaction events before validation
+- Payload contract: raw transaction schema
+
+### `transactions.validated`
+- Produced by: Scala validation service
+- Consumed by: Java persistence/API service, Phoenix web interface
+- Purpose: carries validated transaction events approved for downstream use
+- Payload contract: validated transaction schema
+
+### `transactions.rejected`
+- Produced by: Scala validation service
+- Consumed by: Phoenix web interface
+- Purpose: carries rejected transaction events with rejection reasons
+- Payload contract: rejected transaction schema
+
 ## Assumptions and Constraints
 
 - This is a demonstration project, not a production banking platform.

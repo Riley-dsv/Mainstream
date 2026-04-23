@@ -1,0 +1,3 @@
+[cobol]
+dialect = "gnucobol"
+source-format = "fixed"

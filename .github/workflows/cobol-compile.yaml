@@ -1,0 +1,32 @@
+name: COBOL Compile Check
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install GnuCOBOL
+        uses: fabasoad/setup-cobol-action@v1
+        with:
+          version: "3.2"
+
+      - name: Verify compiler
+        run: cobc -V
+
+      - name: Compile all COBOL sources
+        run: |
+          set -e
+          mkdir -p build
+
+          for file in $(find services -name "*.cob"); do
+            echo "Compiling $file"
+            cobc -x -o build/$(basename $file) $file
+          done

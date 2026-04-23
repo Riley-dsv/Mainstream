@@ -19,9 +19,8 @@ A small distributed platform simulating financial transaction processing across 
 4. Java persists and exposes REST API
 5. Phoenix displays real-time dashboard
 
-## Current Phase : 0 Scoping
+## Current Phase 1: Standalone COBOL Batch
 
-- [x] Choose the transaction format
-- [x] Define the Kafka topics
-- [x] Freeze the statuses
-- [x] Write the JSON schemas
+- [x] Read A legacy file
+- [ ] Produce normalised file
+- [ ] Generate a mini-report

@@ -11,6 +11,7 @@ A small distributed platform simulating financial transaction processing across 
 - Elixir / Phoenix LiveView
 
 ## Architecture
+```
                                                                                                                                                                                                                                                               + - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -+
                                                                                                                                                                                                                                                               '                                    Modern Service Layer                                    '
                                                                                                                                                                                                                                                               '                                                                                            '
@@ -35,6 +36,7 @@ A small distributed platform simulating financial transaction processing across 
                                                                                                                                                                                                                                                               ' +------------------------------+ '
                                                                                                                                                                                                                                                               '                                  '
                                                                                                                                                                                                                                                               + - - - - - - - - - - - - - - - - -+
+```
 
 ## Event Flow
 1. COBOL batch reads legacy transaction file

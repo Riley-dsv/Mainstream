@@ -12,6 +12,8 @@ A small distributed platform simulating financial transaction processing across 
 
 ## Architecture
 
+![Architecture of the system](.github/diagram/architecture_phase0.txt)
+
 ## Event Flow
 1. COBOL batch reads legacy transaction file
 2. Bridge publishes transactions to Kafka

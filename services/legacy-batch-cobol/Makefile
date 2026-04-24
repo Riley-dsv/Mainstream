@@ -1,5 +1,7 @@
+COBFLAGS = -x -I ./src/copybooks
+
 build:
-	cobc -x ReadFile.cob -o _build/Read
+	cobc $(COBFLAGS) src/transaction-reader.cob -o _build/transaction-reader
 
 run:
-	./_build/Read
+	./_build/transaction-reader

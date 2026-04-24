@@ -1,19 +1,4 @@
-      *> File Reader program for COBOL Legacy Batch
-       IDENTIFICATION DIVISION.
-       PROGRAM-ID. legacy-batch-transaction-reader.
-       AUTHOR. Riley.
-              DATE-WRITTEN. 23042026.
-       DATE-COMPILED. 23042026.
-       ENVIRONMENT DIVISION.
-       INPUT-OUTPUT SECTION.
-       FILE-CONTROL.
-           SELECT TRANSACTION-FILE
-                  ASSIGN TO WS-FILE-PATH 
-                  ORGANIZATION IS LINE SEQUENTIAL.
-
-       DATA DIVISION.
-       FILE SECTION.
-       FD TRANSACTION-FILE.
+      * Transaction Record Data format.
        01  TRANSACTION-RECORD.
            05     TR-TRANSACTION-ID      PIC X(33).
            05     FILLER                 PIC X(1).
@@ -38,28 +23,3 @@
            05     TR-REFERENCE           PIC X(20).
            05     FILLER                 PIC X(1).
            05     TR-SOURCE-SYSTEM       PIC X(8).
-       WORKING-STORAGE SECTION.
-       01 WS-EOF       PIC X(1) VALUE 'N'.
-       01 WS-FILE-PATH PIC X(255) VALUE
-                       "../../sample-data/transactions_legacy.dat".
- 
-       PROCEDURE DIVISION.
-       MAIN-PARA.
-           OPEN INPUT TRANSACTION-FILE
-
-           READ TRANSACTION-FILE
-              AT END MOVE 'Y' TO WS-EOF
-           END-READ
-
-           PERFORM UNTIL WS-EOF = 'Y'
-              DISPLAY TR-TRANSACTION-ID
-              DISPLAY TR-AMOUNT
-
-              READ TRANSACTION-FILE
-                 AT END MOVE 'Y' TO WS-EOF
-              END-READ
-           END-PERFORM
-
-           CLOSE TRANSACTION-FILE
-           STOP RUN.
-

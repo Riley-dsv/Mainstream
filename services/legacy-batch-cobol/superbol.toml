@@ -1,3 +1,10 @@
+forceSyntaxDiagnostics = "gnucobol"
+
 [cobol]
 dialect = "gnucobol"
 source-format = "fixed"
+copybooks = [ { dir: "./src/copybooks" } ]
+copytexts = [ "cpy" ]
+
+[debugger]
+displayVariableAttributes = true

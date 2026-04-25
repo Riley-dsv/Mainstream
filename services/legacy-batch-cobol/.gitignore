@@ -44,6 +44,7 @@ Makefile.in
 /doc/stamp-vti
 /doc/version.texi
 /libtool
+/logs
 /po/en@boldquot.po
 /po/en@quot.po
 /po/*.gmo

@@ -26,7 +26,7 @@ jobs:
           set -e
           mkdir -p build
 
-          for file in $(find services -name "*.cob"); do
-            echo "Compiling $file"
-            cobc -x -o build/$(basename $file) $file
-          done
+          cobc -x -I ./src/copybooks src/transaction-reader.cob -o _build/batch-transaction-reader
+          cobc -x -I ./src/copybooks src/transaction-formatter.cob -o _build/report-trans-generator
+          cobc -m -I ./src/copybooks src/main.cob -o _build/legacy-batch-service
+

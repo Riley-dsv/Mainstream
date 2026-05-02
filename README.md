@@ -49,4 +49,4 @@ A small distributed platform simulating financial transaction processing across 
 
 - [x] Read A legacy file
 - [x] Produce normalised file
-- [ ] Generate a mini-report
+- [x] Generate a mini-report

@@ -26,7 +26,9 @@ jobs:
           set -e
           mkdir -p build
 
-          cobc -x -I ./src/copybooks src/transaction-reader.cob -o _build/batch-transaction-reader
-          cobc -x -I ./src/copybooks src/transaction-formatter.cob -o _build/report-trans-generator
-          cobc -m -I ./src/copybooks src/main.cob -o _build/legacy-batch-service
+          service_dir="services/legacy-batch-cobol"
+
+          cobc -m -I ./$service_dir/src/copybooks ./$service_dir/src/transaction-reader.cob -o build/batch-transaction-reader
+          cobc -m -I ./$service_dir/src/copybooks ./$service_dir/src/transaction-formatter.cob -o build/report-trans-generator
+          cobc -x -I ./$service_dir/src/copybooks ./$service_dir/src/main.cob -o build/legacy-batch-service
 

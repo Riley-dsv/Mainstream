@@ -14,6 +14,7 @@ build: $(MODULE_OUT)
 
 run:
 	mkdir -p _output
+	echo "" > _output/transaction_report.rpts
 	cd _build && ./legacy-batch-service
 
 clean:

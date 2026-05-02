@@ -24,26 +24,26 @@ Spaces between logical blocks are part of the format and must be preserved.
 
 | Field | Start | End | Length | Type | Format / Rule |
 |:---:|:---:|:---:|:---:|:---:|:---:|
-| transaction id | 1 | 31 | 31 | alphanumeric | unique transaction identifier, space-padded right if needed |
-| filler-1 | 32 | 32 | 1 | literal | space |
-| operation date | 33 | 40 | 8 | numeric | `YYYYMMDD` |
-| filler-2 | 41 | 41 | 1 | literal | space |
-| operation time | 42 | 47 | 6 | numeric | `HHMMSS` |
-| filler-3 | 48 | 48 | 1 | literal | space |
-| transaction type | 49 | 51 | 3 | alphanumeric | example: `TRF` |
-| filler-4 | 52 | 52 | 1 | literal | space |
-| amount | 53 | 64 | 12 | numeric | integer amount in smallest currency unit, zero-padded left |
-| filler-5 | 65 | 65 | 1 | literal | space |
-| currency | 66 | 68 | 3 | alphabetic | ISO 4217, example: `EUR` |
-| filler-6 | 69 | 69 | 1 | literal | space |
-| sender iban | 70 | 96 | 27 | alphanumeric | sender account identifier |
-| filler-7 | 97 | 97 | 1 | literal | space |
-| receiver iban | 98 | 124 | 27 | alphanumeric | receiver account identifier |
-| filler-8 | 125 | 125 | 1 | literal | space |
-| reference | 126 | 145 | 20 | alphanumeric | business label, space-padded right |
-| filler-9 | 146 | 146 | 1 | literal | space |
-| source system | 147 | 154 | 8 | alphanumeric | example: `BATCH001` |
-| filler-10 | 155 | 162 | 8 | literal | trailing spaces |
+| transaction id | 1 | 32 | 32 | alphanumeric | unique transaction identifier, space-padded right if needed |
+| filler-1 | 33 | 33 | 1 | literal | space |
+| operation date | 34 | 41 | 8 | numeric | `YYYYMMDD` |
+| filler-2 | 42 | 42 | 1 | literal | space |
+| operation time | 43 | 48 | 6 | numeric | `HHMMSS` |
+| filler-3 | 49 | 49 | 1 | literal | space |
+| transaction type | 50 | 52 | 3 | alphanumeric | example: `TRF` |
+| filler-4 | 53 | 53 | 1 | literal | space |
+| amount | 54 | 66 | 12 | numeric | integer amount in smallest currency unit, zero-padded left |
+| filler-5 | 67 | 67 | 1 | literal | space |
+| currency | 68 | 71 | 3 | alphabetic | ISO 4217, example: `EUR` |
+| filler-6 | 72 | 72 | 1 | literal | space |
+| sender iban | 73 | 98 | 27 | alphanumeric | sender account identifier |
+| filler-7 | 99 | 99 | 1 | literal | space |
+| receiver iban | 100 | 127 | 27 | alphanumeric | receiver account identifier |
+| filler-8 | 126 | 126 | 1 | literal | space |
+| reference | 127 | 147 | 20 | alphanumeric | business label, space-padded right |
+| filler-9 | 148 | 148 | 1 | literal | space |
+| source system | 149 | 157 | 8 | alphanumeric | example: `BATCH001` |
+| filler-10 | 158 | 158 | 8 | literal | trailing spaces |
 
 ## Field Definitions
 

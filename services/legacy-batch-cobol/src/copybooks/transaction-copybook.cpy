@@ -1,6 +1,6 @@
       * Transaction Record Data format.
        01  TRANSACTION-RECORD.
-           05     TR-TRANSACTION-ID      PIC X(33).
+           05     TR-TRANSACTION-ID      PIC X(32).
            05     FILLER                 PIC X(1).
            05     TR-OPERATION-DATE      PIC 9(8).
            05     FILLER                 PIC X(1).
@@ -23,3 +23,4 @@
            05     TR-REFERENCE           PIC X(20).
            05     FILLER                 PIC X(1).
            05     TR-SOURCE-SYSTEM       PIC X(8).
+           05     FILLER                 PIC X(2).

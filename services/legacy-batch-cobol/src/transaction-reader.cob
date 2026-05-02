@@ -1,9 +1,9 @@
       *> File Reader program for COBOL Legacy Batch
        IDENTIFICATION DIVISION.
-       PROGRAM-ID. legacy-batch-transaction-reader.
+       PROGRAM-ID. batch-transaction-reader.
        AUTHOR. Riley.
               DATE-WRITTEN. 23042026.
-       DATE-MODIFIED. 24042026.
+       DATE-MODIFIED. 25042026.
               DATE-COMPILED. 23042026.
        ENVIRONMENT DIVISION.
        INPUT-OUTPUT SECTION.
@@ -11,46 +11,41 @@
            SELECT TRANSACTION-FILE
                   ASSIGN TO WS-FILE-PATH 
                   ORGANIZATION IS LINE SEQUENTIAL.
-
        DATA DIVISION.
        FILE SECTION.
        FD TRANSACTION-FILE.    
        COPY "transaction-copybook". 
        WORKING-STORAGE SECTION.
-       01 WS-EOF       PIC X(1) VALUE 'N'.
+       01 WS-FILE-OPEN PIC X(1) VALUE 'N'.
        01 WS-FILE-PATH PIC X(255) VALUE
-                       "../../sample-data/transactions_legacy.dat".
-       PROCEDURE DIVISION.
+                       "../../../sample-data/transactions_legacy.dat".
+       LINKAGE SECTION.
+       COPY "transaction-copybook"
+            REPLACING TRANSACTION-RECORD BY LK-TRANSACTION-RECORD.
+       PROCEDURE DIVISION USING LK-TRANSACTION-RECORD.
       *> I learnt that this was the way we used to name function back
       *then
        000-MAIN.
            PERFORM 100-INIT
-           PERFORM 200-PROCESS
-           PERFORM 300-CLEANUP
-           STOP RUN.
+           PERFORM 200-READ.
 
        100-INIT.
       *> Same as fopen("filename", "r")
-           OPEN INPUT TRANSACTION-FILE.
+           IF WS-FILE-OPEN = 'N'
+              OPEN INPUT TRANSACTION-FILE
+              MOVE 'Y' TO WS-FILE-OPEN
+           END-IF.
 
-       200-PROCESS.
-      *> priming read pattern .
-      *> Quite common in COBOL : Read once to have something in the
-      *buffer before going in PERFORM. 
-      *> If the file is empty, AT END is triggered and we never reach the
-      *PEROFRM loop. 
+       200-READ.
            READ TRANSACTION-FILE
-              AT END MOVE 'Y' TO WS-EOF
+              AT END
+                 PERFORM 300-CLEANUP
+                 MOVE 1 TO RETURN-CODE
+              NOT AT END
+                 MOVE TRANSACTION-RECORD TO LK-TRANSACTION-RECORD
+                 MOVE 0 TO RETURN-CODE
            END-READ
-
-           PERFORM UNTIL WS-EOF = 'Y'
-              DISPLAY TR-TRANSACTION-ID
-              DISPLAY TR-AMOUNT
-
-              READ TRANSACTION-FILE
-                 AT END MOVE 'Y' TO WS-EOF
-              END-READ
-           END-PERFORM.
+           GOBACK.
 
        300-CLEANUP.
            CLOSE TRANSACTION-FILE.

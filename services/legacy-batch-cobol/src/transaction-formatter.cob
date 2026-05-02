@@ -1,0 +1,105 @@
+      *> Report generator for modern stack and easier parsing
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. report-trans-generator.
+       AUTHOR. Riley.
+              DATE-WRITTEN. 25042026.
+       DATE-COMPILED. 25042026.
+       ENVIRONMENT DIVISION.
+       INPUT-OUTPUT SECTION.
+       FILE-CONTROL.
+           SELECT FORMATTED-REPORT-FILE
+                  ASSIGN TO WS-FILE-PATH 
+                  ORGANIZATION IS LINE SEQUENTIAL
+                  FILE STATUS IS WS-FILE-STATUS.
+       DATA DIVISION.
+       FILE SECTION.
+       FD FORMATTED-REPORT-FILE.
+       01 FS-REPORT-LINE PIC X(90).
+       WORKING-STORAGE SECTION.
+       01 WS-FILE-PATH   PIC X(255) VALUE
+                         "../_output/transaction_report.rpts".
+       01 WS-FILE-STATUS PIC X(2). 
+       LINKAGE SECTION.
+       COPY "transaction-copybook"
+            REPLACING TRANSACTION-RECORD BY LK-TRANSACTION-RECORD.
+       PROCEDURE DIVISION USING LK-TRANSACTION-RECORD.
+       000-MAIN.
+           PERFORM 100-INIT
+           PERFORM 200-WRITE
+           PERFORM 300-CLEANUP
+           GOBACK.
+       100-INIT.
+           OPEN EXTEND FORMATTED-REPORT-FILE
+           PERFORM 400-LOG-ERROR.
+       200-WRITE.
+           MOVE SPACES TO FS-REPORT-LINE
+
+           STRING "TRANSACTION-ID=" DELIMITED SIZE
+                  TR-TRANSACTION-ID DELIMITED SPACE
+                  INTO FS-REPORT-LINE
+           WRITE FS-REPORT-LINE 
+           PERFORM 400-LOG-ERROR
+
+           MOVE SPACES TO FS-REPORT-LINE
+           STRING "DATE=" DELIMITED SIZE
+                  TR-OPERATION-DATE DELIMITED SPACE
+                  INTO FS-REPORT-LINE
+           WRITE FS-REPORT-LINE
+           PERFORM 400-LOG-ERROR
+           MOVE SPACES TO FS-REPORT-LINE
+
+           STRING "TIME=" DELIMITED SIZE
+                  TR-OPERATION-TIME DELIMITED SPACE
+                  INTO FS-REPORT-LINE
+           WRITE FS-REPORT-LINE
+           PERFORM 400-LOG-ERROR
+
+           MOVE SPACES TO FS-REPORT-LINE
+           STRING "AMOUNT=" DELIMITED SIZE
+                  TR-AMOUNT DELIMITED SPACE
+                  INTO FS-REPORT-LINE
+           WRITE FS-REPORT-LINE
+           PERFORM 400-LOG-ERROR
+
+           MOVE SPACES TO FS-REPORT-LINE
+           STRING "CURRENCY=" DELIMITED SIZE
+                  TR-CURRENCY DELIMITED SPACE
+                  INTO FS-REPORT-LINE
+           WRITE FS-REPORT-LINE
+           PERFORM 400-LOG-ERROR
+
+           MOVE SPACES TO FS-REPORT-LINE
+           STRING "SENDER-IBAN=" DELIMITED SIZE
+                  TR-SENDER-IBAN DELIMITED SPACE
+                  INTO FS-REPORT-LINE
+           WRITE FS-REPORT-LINE
+           PERFORM 400-LOG-ERROR
+           MOVE SPACES TO FS-REPORT-LINE
+
+           STRING "RECEIVER-IBAN=" DELIMITED SIZE
+                  TR-RECEIVER-IBAN DELIMITED SPACE
+                  INTO FS-REPORT-LINE
+           WRITE FS-REPORT-LINE
+           PERFORM 400-LOG-ERROR
+           MOVE SPACES TO FS-REPORT-LINE
+
+           STRING "ORIGIN=" DELIMITED SIZE
+                  TR-SOURCE-SYSTEM DELIMITED SPACE
+                  INTO FS-REPORT-LINE
+           WRITE FS-REPORT-LINE
+           PERFORM 400-LOG-ERROR
+           
+           MOVE SPACES TO FS-REPORT-LINE
+           STRING "---" DELIMITED SIZE
+                  INTO FS-REPORT-LINE
+           WRITE FS-REPORT-LINE 
+           PERFORM 400-LOG-ERROR.
+       300-CLEANUP.
+           CLOSE FORMATTED-REPORT-FILE.
+       400-LOG-ERROR.
+           IF WS-FILE-STATUS NOT = "00"
+              DISPLAY "Error opening report file: " WS-FILE-STATUS
+              MOVE 1 TO RETURN-CODE
+              PERFORM 300-CLEANUP
+              GOBACK
+           END-IF.

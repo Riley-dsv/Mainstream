@@ -48,5 +48,5 @@ A small distributed platform simulating financial transaction processing across 
 ## Current Phase 1: Standalone COBOL Batch
 
 - [x] Read A legacy file
-- [ ] Produce normalised file
+- [x] Produce normalised file
 - [ ] Generate a mini-report

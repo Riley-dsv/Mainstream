@@ -26,6 +26,10 @@ jobs:
           set -e
           mkdir -p build
 
+          for file in $(find services -name "*.cob"); do
+            echo "Compiling $file"
+            cobc -x -o build/$(basename $file) $file
+          done
           service_dir="services/legacy-batch-cobol"
 
           cobc -m -I ./$service_dir/src/copybooks ./$service_dir/src/transaction-reader.cob -o build/batch-transaction-reader
